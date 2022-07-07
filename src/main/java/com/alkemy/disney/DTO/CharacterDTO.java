@@ -1,6 +1,9 @@
 package com.alkemy.disney.DTO;
 
+import com.alkemy.disney.entity.MovieEntity;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class CharacterDTO {
@@ -10,4 +13,5 @@ public class CharacterDTO {
     private Integer age;
     private Integer weight;
     private String history;
+    private Set<MovieEntity> movies;
 }
