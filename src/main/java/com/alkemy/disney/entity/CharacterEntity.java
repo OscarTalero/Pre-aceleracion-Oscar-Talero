@@ -28,8 +28,8 @@ public class CharacterEntity {
             })
     @JoinTable(
             name = "movie_character",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+            joinColumns = @JoinColumn(name = "character_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<MovieEntity> movies = new HashSet<>();
 
     @Override
