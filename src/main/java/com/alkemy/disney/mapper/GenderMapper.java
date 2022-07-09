@@ -12,6 +12,7 @@ public class GenderMapper {
 
     public GenderEntity genderDTO2Entity(GenderDTO dto){
         GenderEntity genderEntity = new GenderEntity();
+        genderEntity.setId(dto.getId());
         genderEntity.setName(dto.getName());
         genderEntity.setImage(dto.getImage());
         return genderEntity;

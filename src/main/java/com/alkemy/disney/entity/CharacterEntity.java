@@ -21,7 +21,7 @@ public class CharacterEntity {
     private Integer weight;
     private String history;
 
-    @ManyToMany(
+/*    @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -40,5 +40,5 @@ public class CharacterEntity {
             return false;
         final CharacterEntity other = (CharacterEntity) obj;
         return other.id == this.id;
-    }
+    }*/
 }

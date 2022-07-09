@@ -23,9 +23,9 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieDTO> save(@RequestBody MovieDTO characterDTO){
-        MovieDTO characterSaved = movieService.save(characterDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
+    public ResponseEntity<MovieDTO> save(@RequestBody MovieDTO movieDTO){
+        MovieDTO movieSaved = this.movieService.save(movieDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieSaved);
     }
 
     @DeleteMapping("/{id}")
