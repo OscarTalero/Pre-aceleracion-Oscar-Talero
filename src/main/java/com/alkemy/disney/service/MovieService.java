@@ -8,8 +8,8 @@ import java.util.Set;
 
 public interface MovieService {
 
-    MovieDTO save(MovieDTO dto);
+    MovieDTO saveMovie(MovieDTO dto);
     List<MovieDTO> getAllMovies();
-    void delete(Long id);
-    MovieDTO update(Long id, MovieDTO movie);
+    void deleteMovie(Long id);
+    MovieDTO updateMovie(Long id, MovieDTO movie);
 }

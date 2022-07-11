@@ -5,7 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,9 +23,8 @@ public class MovieEntity {
     private String image;
     private String title;
 
-    @Column( name = "creation_date")
-    @DateTimeFormat( pattern = "yyyy/mm/dd")
-    private LocalDate creationDate;
+ //   @Column( name = "creation_date")
+ //   private LocalDate creationDate;
 
     private Integer rating;
 
@@ -31,17 +32,9 @@ public class MovieEntity {
     @JoinColumn(name = "gender_id")
     private GenderEntity gender;
 
-/*
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "movie_character",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
     private Set<CharacterEntity> characters = new HashSet<>();
-*/
+
+
 
 }

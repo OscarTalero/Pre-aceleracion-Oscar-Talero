@@ -1,16 +1,13 @@
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.entity.CharacterEntity;
-import com.alkemy.disney.entity.GenderEntity;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.repository.CharacterRepository;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +20,7 @@ public class CharacterServiceImpl implements CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public CharacterDTO save (CharacterDTO dto){
+    public CharacterDTO addCharacter (CharacterDTO dto){
         CharacterEntity entity = characterMapper.characterDTO2Entity(dto);
         CharacterEntity entitySaved = characterRepository.save(entity);
         CharacterDTO result = characterMapper.characterEntity2DTO(entitySaved);
@@ -36,11 +33,11 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
-    public void delete (Long id){
+    public void deleteCharacter (Long id){
         characterRepository.deleteById(id);
     }
 
-    public CharacterDTO update (Long id, CharacterDTO dto){
+    public CharacterDTO updateCharacter (Long id, CharacterDTO dto){
         Optional<CharacterEntity> entity = characterRepository.findById(id);
         CharacterEntity entityFind = entity.get();
         CharacterEntity entityUpdated = characterMapper.updateEntity(entityFind, dto);

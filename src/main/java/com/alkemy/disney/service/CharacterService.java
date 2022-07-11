@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface CharacterService {
 
-    CharacterDTO save (CharacterDTO dto);
+    CharacterDTO addCharacter (CharacterDTO dto);
     List<CharacterDTO> getAllCharacters();
-    void delete(Long id);
-    CharacterDTO update(Long id, CharacterDTO character);
+    void deleteCharacter(Long id);
+    CharacterDTO updateCharacter(Long id, CharacterDTO character);
 
 }

@@ -18,26 +18,26 @@ public class CharacterController {
     private CharacterService characterService;
 
     @GetMapping
-    public ResponseEntity<List<CharacterDTO>> getAll() {
+    public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
         List<CharacterDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
 
     @PostMapping
-    public ResponseEntity<CharacterDTO> save(@RequestBody CharacterDTO characterDTO){
-        CharacterDTO characterSaved = characterService.save(characterDTO);
+    public ResponseEntity<CharacterDTO> addCharacter(@RequestBody CharacterDTO characterDTO){
+        CharacterDTO characterSaved = characterService.addCharacter(characterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        characterService.delete(id);
+    public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {
+        characterService.deleteCharacter(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterDTO> update(@PathVariable Long id, @RequestBody CharacterDTO character) {
-        CharacterDTO result = characterService.update(id, character);
+    public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO character) {
+        CharacterDTO result = characterService.updateCharacter(id, character);
         return ResponseEntity.ok().body(result);
     }
 }

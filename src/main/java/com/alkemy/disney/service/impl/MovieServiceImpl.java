@@ -20,10 +20,10 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     MovieRepository movieRepository;
 
-    public MovieDTO save (MovieDTO dto){
+    public MovieDTO saveMovie (MovieDTO dto){
         MovieEntity entity = movieMapper.movieDTO2Entity(dto);
-        MovieEntity entitySaved = movieRepository.save(entity);
-        MovieDTO result = movieMapper.movieEntity2DTO(entitySaved);
+        movieRepository.save(entity);
+        MovieDTO result = movieMapper.movieEntity2DTO(entity);
         return result;
     }
 
@@ -33,11 +33,11 @@ public class MovieServiceImpl implements MovieService {
         return result;
     }
 
-    public void delete (Long id){
+    public void deleteMovie (Long id){
         movieRepository.deleteById(id);
     }
 
-    public MovieDTO update (Long id, MovieDTO dto){
+    public MovieDTO updateMovie (Long id, MovieDTO dto){
         Optional<MovieEntity> entity = movieRepository.findById(id);
         MovieEntity entityFind = entity.get();
         MovieEntity entityUpdated = movieMapper.updateEntity(entityFind, dto);

@@ -21,8 +21,13 @@ public class CharacterEntity {
     private Integer weight;
     private String history;
 
- /*   @ManyToMany(mappedBy = "movies")
-    private Set<MovieEntity> movies = new HashSet<>();*/
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "movie_character",
+            joinColumns = @JoinColumn(name = "character_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    private Set<MovieEntity> movies = new HashSet<>();
 
 
 }
