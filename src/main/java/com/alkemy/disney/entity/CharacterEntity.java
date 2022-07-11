@@ -21,24 +21,8 @@ public class CharacterEntity {
     private Integer weight;
     private String history;
 
-/*    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "movie_character",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<MovieEntity> movies = new HashSet<>();
+ /*   @ManyToMany(mappedBy = "movies")
+    private Set<MovieEntity> movies = new HashSet<>();*/
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final CharacterEntity other = (CharacterEntity) obj;
-        return other.id == this.id;
-    }*/
+
 }

@@ -2,12 +2,15 @@ package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.DTO.MovieDTO;
+import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.GenderEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class MovieMapper {
@@ -17,39 +20,28 @@ public class MovieMapper {
         entity.setTitle(dto.getTitle());
         entity.setImage(dto.getImage());
         //entity.setCreationDate(dto.getCreationDate());
-        entity.setCalification(dto.getCalification());
+        entity.setRating(dto.getRating());
         GenderMapper genderMapper = new GenderMapper();
-        GenderEntity result = genderMapper.genderDTO2Entity(dto.getGender());
-        entity.setGender(result);
-     //   entity.setCharacters(dto.getCharacters());
+        GenderEntity resultGender = genderMapper.genderDTO2Entity(dto.getGender());
+        entity.setGender(resultGender);
+ //       entity.setCharacters(dto.getCharacters());
         return entity;
     }
 
- /*   public GenderIdDTO gender2GenderIdDTO (GenderEntity gender){
-        GenderIdDTO genderIdDTO = new GenderIdDTO();
-        genderIdDTO.setId(gender.getId());
-        return genderIdDTO;
-    }*/
     public MovieDTO movieEntity2DTO (MovieEntity entity){
         MovieDTO dto = new MovieDTO();
-        dto.setId(entity.getId());
+     //   dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         dto.setImage(entity.getImage());
         //dto.setCreationDate(entity.getCreationDate());
-        dto.setCalification(entity.getCalification());
+        dto.setRating(entity.getRating());
         GenderMapper genderMapper = new GenderMapper();
         GenderDTO result = genderMapper.genderEntity2DTO(entity.getGender());
         dto.setGender(result);
         dto.setGender(result);
-     //   dto.setCharacters(entity.getCharacters());
+      //  dto.setCharacters(entity.getCharacters());
         return dto;
     }
-
-/*    public GenderNameDTO gender2GenderNameDTO (GenderEntity gender){
-        GenderNameDTO genderNameDTO = new GenderNameDTO();
-        genderNameDTO.setName(gender.getName());
-        return genderNameDTO;
-    }*/
 
     public List<MovieDTO> movieEntityList2DTOList (List<MovieEntity> entities){
         List<MovieDTO> dtos = new ArrayList<>();

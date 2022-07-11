@@ -4,6 +4,7 @@ import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.DTO.MovieDTO;
 
 import java.util.List;
+import java.util.Set;
 
 public interface MovieService {
 

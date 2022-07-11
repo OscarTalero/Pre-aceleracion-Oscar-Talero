@@ -17,26 +17,26 @@ public class GenderController {
     private GenderService genderService;
 
     @GetMapping
-    public ResponseEntity<List<GenderDTO>> getAll() {
-        List<GenderDTO> genders = genderService.getAllGenders();
-        return ResponseEntity.ok().body(genders);
+    public ResponseEntity<List<GenderDTO>> getAllGenders() {
+        List<GenderDTO> gendersDTO = genderService.getAllGenders();
+        return ResponseEntity.ok().body(gendersDTO);
     }
 
     @PostMapping
-    public ResponseEntity<GenderDTO> save(@RequestBody GenderDTO gender) {
-        GenderDTO genderSaved = genderService.save(gender);
+    public ResponseEntity<GenderDTO> addGender(@RequestBody GenderDTO gender) {
+        GenderDTO genderSaved = genderService.addGender(gender);
         return ResponseEntity.status(HttpStatus.CREATED).body(genderSaved);
     }
 
    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        genderService.delete(id);
+    public ResponseEntity<Void> deleteGender(@PathVariable Long id) {
+        genderService.deleteGender(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenderDTO> update(@PathVariable Long id, @RequestBody GenderDTO gender) {
-        GenderDTO result = genderService.update(id, gender);
+    public ResponseEntity<GenderDTO> updateGender(@PathVariable Long id, @RequestBody GenderDTO gender) {
+        GenderDTO result = genderService.updateGender(id, gender);
         return ResponseEntity.ok().body(result);
     }
 }

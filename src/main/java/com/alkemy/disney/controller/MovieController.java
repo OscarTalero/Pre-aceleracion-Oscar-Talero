@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("movies")
@@ -17,9 +18,9 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public ResponseEntity<List<MovieDTO>> getAll() {
+    public ResponseEntity<Set<MovieDTO>> getAll() {
         List<MovieDTO> movies = movieService.getAllMovies();
-        return ResponseEntity.ok().body(movies);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping

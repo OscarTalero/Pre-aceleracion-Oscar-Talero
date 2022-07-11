@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface GenderService {
 
-    GenderDTO save(GenderDTO dto);
+    GenderDTO addGender(GenderDTO dto);
     List<GenderDTO> getAllGenders();
-    void delete(Long id);
-    GenderDTO update(Long id, GenderDTO gender);
+    void deleteGender(Long id);
+    GenderDTO updateGender(Long id, GenderDTO gender);
 }

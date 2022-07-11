@@ -19,10 +19,10 @@ public class GenderServiceImpl implements GenderService {
     @Autowired
     private GenderRepository genderRepository;
 
-    public GenderDTO save(GenderDTO dto){
+    public GenderDTO addGender(GenderDTO dto){
         GenderEntity entity = genderMapper.genderDTO2Entity(dto);
-        GenderEntity entitySaved = genderRepository.save(entity);
-        GenderDTO result = genderMapper.genderEntity2DTO(entitySaved);
+        genderRepository.save(entity);
+        GenderDTO result = genderMapper.genderEntity2DTO(entity);
         return result;
     }
 
@@ -32,11 +32,11 @@ public class GenderServiceImpl implements GenderService {
         return result;
     }
 
-    public void delete(Long id) {
+    public void deleteGender(Long id) {
         genderRepository.deleteById(id);
     }
 
-    public GenderDTO update(Long id, GenderDTO dto){
+    public GenderDTO updateGender(Long id, GenderDTO dto){
         Optional<GenderEntity> entity = genderRepository.findById(id);
         GenderEntity entityFind = entity.get();
         GenderEntity entityUpdated = genderMapper.updateEntity(entityFind, dto);
