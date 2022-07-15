@@ -35,7 +35,7 @@ public class CharacterServiceImpl implements CharacterService {
         List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(entities, false);
         return result;
     }
-/*
+
     public void deleteCharacter (Long id){
         characterRepository.deleteById(id);
     }
@@ -49,7 +49,4 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
-}
-
-*/
 }

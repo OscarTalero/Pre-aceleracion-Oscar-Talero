@@ -6,6 +6,7 @@ import com.alkemy.disney.DTO.MovieDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 public class CharacterMapper {
 
     ModelMapper modelMapper = new ModelMapper();
+    @Lazy
     @Autowired
     private MovieMapper movieMapper;
 
@@ -30,6 +32,7 @@ public class CharacterMapper {
 
     public CharacterDTO characterEntity2DTO (CharacterEntity entity, boolean loadMovies){   //14
         CharacterDTO dto = new CharacterDTO();
+        dto.setId(entity.getId());
         dto.setImage(entity.getImage());
         dto.setName(entity.getName());
         dto.setAge(entity.getAge());
@@ -59,15 +62,11 @@ public class CharacterMapper {
         }
         return dtos;
     }
-
-
-/*
+    
     public CharacterEntity updateEntity(CharacterEntity entity, CharacterDTO dto){
         entity.setName(dto.getName());
         entity.setImage(dto.getImage());
         return entity;
     }
 
-}
-*/
 }

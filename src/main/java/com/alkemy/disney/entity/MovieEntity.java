@@ -21,10 +21,10 @@ public class MovieEntity {
     private String image;
     private String title;
 
-    @Column(name = "creation_date")
+   /* @Column(name = "creation_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate creationDate;
-
+*/
 
     private Integer rating;
 

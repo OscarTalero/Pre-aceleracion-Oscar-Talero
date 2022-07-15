@@ -34,7 +34,7 @@ public class CharacterController {
     }
 
 
-/*    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {
         characterService.deleteCharacter(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -44,8 +44,5 @@ public class CharacterController {
     public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO character) {
         CharacterDTO result = characterService.updateCharacter(id, character);
         return ResponseEntity.ok().body(result);
-    }*//*
-
-}
-*/
+    }
 }
