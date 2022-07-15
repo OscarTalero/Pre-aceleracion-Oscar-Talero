@@ -16,12 +16,14 @@ public class GenderController {
     @Autowired
     private GenderService genderService;
 
+    //List All Genders
     @GetMapping
     public ResponseEntity<List<GenderDTO>> getAllGenders() {
         List<GenderDTO> gendersDTO = genderService.getAllGenders();
         return ResponseEntity.ok().body(gendersDTO);
     }
 
+    //Add new Gender
     @PostMapping
     public ResponseEntity<GenderDTO> addGender(@RequestBody GenderDTO gender) {
         GenderDTO genderSaved = genderService.addGender(gender);

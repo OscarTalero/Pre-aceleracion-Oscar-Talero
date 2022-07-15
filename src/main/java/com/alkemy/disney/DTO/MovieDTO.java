@@ -1,12 +1,8 @@
 package com.alkemy.disney.DTO;
 
-
-import com.alkemy.disney.entity.CharacterEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,9 +11,9 @@ public class MovieDTO {
     private Long id;
     private String image;
     private String title;
- //   private LocalDate creationDate;
+    private String creationDate;
     private Integer rating;
-    private Set<CharacterEntity> characters = new HashSet<>();
+    private List<CharacterDTO> characters;
     private GenderDTO gender;
 
 }

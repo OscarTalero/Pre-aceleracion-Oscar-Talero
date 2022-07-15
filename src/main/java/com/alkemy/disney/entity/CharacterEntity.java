@@ -1,11 +1,12 @@
 package com.alkemy.disney.entity;
 
-
 import lombok.Data;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "characters")
@@ -21,13 +22,10 @@ public class CharacterEntity {
     private Integer weight;
     private String history;
 
-    @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "movie_character",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<MovieEntity> movies = new HashSet<>();
+
+    @ManyToMany(mappedBy = "characters")
+    private List<MovieEntity> movies = new ArrayList<>();
+
 
 
 }

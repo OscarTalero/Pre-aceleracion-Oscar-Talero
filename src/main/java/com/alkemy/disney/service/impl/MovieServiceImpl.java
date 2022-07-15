@@ -1,3 +1,4 @@
+
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.MovieDTO;
@@ -14,25 +15,27 @@ import java.util.Set;
 
 @Service
 public class MovieServiceImpl implements MovieService {
+
     @Autowired
     MovieMapper movieMapper;
 
     @Autowired
     MovieRepository movieRepository;
 
-    public MovieDTO saveMovie (MovieDTO dto){
-        MovieEntity entity = movieMapper.movieDTO2Entity(dto);
-        movieRepository.save(entity);
-        MovieDTO result = movieMapper.movieEntity2DTO(entity);
-        return result;
+    //Add new Movie
+    public MovieDTO addMovie (MovieDTO movieDTO){
+        MovieEntity movieEntity = movieMapper.movieDTO2Entity(movieDTO);  //1
+        MovieEntity entitySaved = movieRepository.save(movieEntity);
+        return movieMapper.movieEntity2DTO(entitySaved, true);  //10
     }
 
-    public List<MovieDTO> getAllMovies(){
+
+ public List<MovieDTO> getAllMovies(){
         List<MovieEntity> entities = movieRepository.findAll();
-        List<MovieDTO> result = movieMapper.movieEntityList2DTOList(entities);
+        List<MovieDTO> result = movieMapper.movieEntityList2DTOList(entities, false);
         return result;
     }
-
+ /*
     public void deleteMovie (Long id){
         movieRepository.deleteById(id);
     }
@@ -42,7 +45,9 @@ public class MovieServiceImpl implements MovieService {
         MovieEntity entityFind = entity.get();
         MovieEntity entityUpdated = movieMapper.updateEntity(entityFind, dto);
         MovieEntity entitySaved = movieRepository.save(entityUpdated);
-        MovieDTO result = movieMapper.movieEntity2DTO(entitySaved);
+        MovieDTO result = movieMapper.movieEntity2DTO(entitySaved, false);
         return result;
     }
+*/
 }
+

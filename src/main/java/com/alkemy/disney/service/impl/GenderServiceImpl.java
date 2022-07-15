@@ -15,10 +15,11 @@ import java.util.Optional;
 public class GenderServiceImpl implements GenderService {
 
     @Autowired
-    private GenderMapper genderMapper;
+    GenderMapper genderMapper;
     @Autowired
-    private GenderRepository genderRepository;
+    GenderRepository genderRepository;
 
+    //Add new Gender
     public GenderDTO addGender(GenderDTO dto){
         GenderEntity entity = genderMapper.genderDTO2Entity(dto);
         genderRepository.save(entity);
@@ -26,16 +27,19 @@ public class GenderServiceImpl implements GenderService {
         return result;
     }
 
+    //List All Gender
     public List<GenderDTO> getAllGenders() {
         List<GenderEntity> entities = genderRepository.findAll();
         List<GenderDTO> result = genderMapper.genderEntityList2DTOList(entities);
         return result;
     }
 
+    //Delete Gender
     public void deleteGender(Long id) {
         genderRepository.deleteById(id);
     }
 
+    //Update Gender
     public GenderDTO updateGender(Long id, GenderDTO dto){
         Optional<GenderEntity> entity = genderRepository.findById(id);
         GenderEntity entityFind = entity.get();

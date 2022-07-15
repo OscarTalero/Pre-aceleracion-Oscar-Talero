@@ -1,3 +1,4 @@
+
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.DTO.CharacterDTO;
@@ -17,19 +18,23 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
+
+
     @GetMapping
     public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
         List<CharacterDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
 
+
     @PostMapping
-    public ResponseEntity<CharacterDTO> addCharacter(@RequestBody CharacterDTO characterDTO){
+    public ResponseEntity<CharacterDTO> addCharacter(@RequestBody CharacterDTO characterDTO) {
         CharacterDTO characterSaved = characterService.addCharacter(characterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
 
-    @DeleteMapping("/{id}")
+
+/*    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {
         characterService.deleteCharacter(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -39,5 +44,8 @@ public class CharacterController {
     public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO character) {
         CharacterDTO result = characterService.updateCharacter(id, character);
         return ResponseEntity.ok().body(result);
-    }
+    }*//*
+
+}
+*/
 }
