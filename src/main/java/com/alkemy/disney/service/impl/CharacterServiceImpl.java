@@ -3,10 +3,12 @@
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.CharacterDTO;
+import com.alkemy.disney.DTO.CharactersFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.CharacterRepository;
+import com.alkemy.disney.repository.Specifications.CharacterSpecification;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,13 @@ public class CharacterServiceImpl implements CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
+    @Autowired
+    private CharacterSpecification characterSpecification;
+
     public CharacterDTO addCharacter(CharacterDTO dto) {
         CharacterEntity entity = characterMapper.characterDTO2Entity(dto);
         CharacterEntity entitySaved = characterRepository.save(entity);
-        CharacterDTO result = characterMapper.characterEntity2DTO(entitySaved, false);
-        return result;
+        return characterMapper.characterEntity2DTO(entitySaved, false);
     }
 
   public List<CharacterDTO> getAllCharacters(){
@@ -48,5 +52,18 @@ public class CharacterServiceImpl implements CharacterService {
         CharacterDTO result = characterMapper.characterEntity2DTO(entitySaved, false);
         return result;
     }
+
+    public CharacterDTO getCharacterDetailsById (Long id){
+        Optional<CharacterEntity> entity = characterRepository.findById(id);
+        return  characterMapper.characterEntity2DTO(entity.get(), true);
+    }
+
+    public List<CharacterDTO> getCharactersByFilters(String name, Integer age, Integer weight, List<Long> movies){
+        CharactersFiltersDTO filtersDTO = new CharactersFiltersDTO(name, age, weight, movies);
+        List<CharacterEntity> entitiesList = characterRepository.findAll(characterSpecification.getCharactersByFilters(filtersDTO));
+        return characterMapper.characterEntityList2DTOList(entitiesList, true);
+
+    }
+
 
 }

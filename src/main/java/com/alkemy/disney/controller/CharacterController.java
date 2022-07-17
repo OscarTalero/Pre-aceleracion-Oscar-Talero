@@ -19,12 +19,13 @@ public class CharacterController {
     private CharacterService characterService;
 
 
-
+/*
     @GetMapping
     public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
         List<CharacterDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
+*/
 
 
     @PostMapping
@@ -45,4 +46,21 @@ public class CharacterController {
         CharacterDTO result = characterService.updateCharacter(id, character);
         return ResponseEntity.ok().body(result);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CharacterDTO> getCharactersDetailsById(@PathVariable Long id) {
+        CharacterDTO characterDto = characterService.getCharacterDetailsById(id);
+        return ResponseEntity.ok(characterDto);
+    }
+
+    @GetMapping
+        public ResponseEntity<List<CharacterDTO>> getDetailsByFilter(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) Integer age,
+        @RequestParam(required = false) Integer weight,
+        @RequestParam(required = false) List<Long> movies)
+        {
+        List<CharacterDTO> characters = this.characterService.getCharactersByFilters(name, age, weight, movies);
+        return ResponseEntity.ok(characters);
+        }
 }
