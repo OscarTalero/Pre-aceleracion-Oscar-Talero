@@ -1,6 +1,5 @@
 package com.alkemy.disney.mapper;
 import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.MovieBasicDTO;
 import com.alkemy.disney.DTO.MovieDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
@@ -64,6 +63,12 @@ public class MovieMapper {
         return dtos;
     }
 
+    public MovieEntity updateEntity(MovieEntity entity, MovieDTO dto){
+        entity.setTitle(dto.getTitle());
+        entity.setImage(dto.getImage());
+        return entity;
+    }
+
 }
 
 
@@ -72,12 +77,7 @@ public class MovieMapper {
 
 
 /*
-    public MovieEntity updateEntity(MovieEntity entity, MovieDTO dto){
-        entity.setTitle(dto.getTitle());
-        entity.setImage(dto.getImage());
-        //TODO: update all properties
-        return entity;
-    }
+
 
     public MovieEntity movieBasicDTO2Entity (MovieDTO dto){
         return modelMapper.map(dto, MovieEntity.class);

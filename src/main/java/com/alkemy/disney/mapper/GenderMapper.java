@@ -3,9 +3,7 @@ package com.alkemy.disney.mapper;
 import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.entity.GenderEntity;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 

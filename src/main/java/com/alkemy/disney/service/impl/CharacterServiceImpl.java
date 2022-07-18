@@ -3,10 +3,10 @@
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.CharactersFiltersDTO;
+import com.alkemy.disney.DTO.CharacterFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.exception.ParamNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
-import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.CharacterRepository;
 import com.alkemy.disney.repository.Specifications.CharacterSpecification;
 import com.alkemy.disney.service.CharacterService;
@@ -34,11 +34,11 @@ public class CharacterServiceImpl implements CharacterService {
         return characterMapper.characterEntity2DTO(entitySaved, false);
     }
 
-  public List<CharacterDTO> getAllCharacters(){
+/*  public List<CharacterDTO> getAllCharacters(){
         List<CharacterEntity> entities = characterRepository.findAll();
         List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(entities, false);
         return result;
-    }
+    }*/
 
     public void deleteCharacter (Long id){
         characterRepository.deleteById(id);
@@ -55,11 +55,14 @@ public class CharacterServiceImpl implements CharacterService {
 
     public CharacterDTO getCharacterDetailsById (Long id){
         Optional<CharacterEntity> entity = characterRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("Gender Id not valid");
+        }
         return  characterMapper.characterEntity2DTO(entity.get(), true);
     }
 
     public List<CharacterDTO> getCharactersByFilters(String name, Integer age, Integer weight, List<Long> movies){
-        CharactersFiltersDTO filtersDTO = new CharactersFiltersDTO(name, age, weight, movies);
+        CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies);
         List<CharacterEntity> entitiesList = characterRepository.findAll(characterSpecification.getCharactersByFilters(filtersDTO));
         return characterMapper.characterEntityList2DTOList(entitiesList, true);
 

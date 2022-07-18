@@ -2,6 +2,7 @@ package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.entity.GenderEntity;
+import com.alkemy.disney.exception.ParamNotFound;
 import com.alkemy.disney.mapper.GenderMapper;
 import com.alkemy.disney.repository.GenderRepository;
 import com.alkemy.disney.service.GenderService;
@@ -42,11 +43,13 @@ public class GenderServiceImpl implements GenderService {
     //Update Gender
     public GenderDTO updateGender(Long id, GenderDTO dto){
         Optional<GenderEntity> entity = genderRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("Gender Id not valid");
+        }
         GenderEntity entityFind = entity.get();
         GenderEntity entityUpdated = genderMapper.updateEntity(entityFind, dto);
         GenderEntity entitySaved = genderRepository.save(entityUpdated);
-        GenderDTO result = genderMapper.genderEntity2DTO(entitySaved);
-        return result;
+        return genderMapper.genderEntity2DTO(entitySaved);
     }
 
 }

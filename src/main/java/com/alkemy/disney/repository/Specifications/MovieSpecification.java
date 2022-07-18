@@ -1,7 +1,6 @@
 package com.alkemy.disney.repository.Specifications;
 
-
-import com.alkemy.disney.DTO.CharacterFiltersDTO;
+import com.alkemy.disney.DTO.MovieFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,46 +16,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CharacterSpecification {
+public class MovieSpecification {
 
-    public Specification<CharacterEntity> getCharactersByFilters (CharacterFiltersDTO filtersDTO) {
+    public Specification<MovieEntity> getMoviesByFilters (MovieFiltersDTO filtersDTO) {
 
         return ((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            //By name
-            if (StringUtils.hasLength(filtersDTO.getName())) {
+            //By title
+            if (StringUtils.hasLength(filtersDTO.getTitle())) {
                 predicates.add(
                         criteriaBuilder.like(
-                                criteriaBuilder.lower(root.get("name")),
-                                "%" + filtersDTO.getName().toLowerCase() + "%"
+                                criteriaBuilder.lower(root.get("title")),
+                                "%" + filtersDTO.getTitle().toLowerCase() + "%"
                         )
                 );
             }
 
-            //By age
-            if (filtersDTO.getAge() != null) {
-                predicates.add(
-                        criteriaBuilder.equal(root.get("age"), filtersDTO.getAge())
-                );
-            }
-
-            //By weight
-            if (filtersDTO.getWeight() != null) {
-                predicates.add(
-                        criteriaBuilder.equal(root.get("age"), filtersDTO.getWeight())
-                );
-            }
-
-            //By movies
-            if(!CollectionUtils.isEmpty(filtersDTO.getMovies())) {
+            //By genres
+            if(!CollectionUtils.isEmpty(filtersDTO.getGenre())) {
                 Join<CharacterEntity, MovieEntity> join = root.join("movies", JoinType.INNER);
                 Expression<String> moviesId = join.get("id");
-                predicates.add(moviesId.in(filtersDTO.getMovies()));
+                predicates.add(moviesId.in(filtersDTO.getGenre()));
             }
 
             query.distinct(true);
+
+            //by order
+            String orderByField = "title";
+            query.orderBy(
+                    filtersDTO.isASC() ?
+                            criteriaBuilder.asc(root.get(orderByField)) :
+                            criteriaBuilder.desc(root.get(orderByField))
+            );
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });
     }
+
 }

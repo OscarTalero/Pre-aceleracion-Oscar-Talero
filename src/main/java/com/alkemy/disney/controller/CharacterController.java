@@ -1,8 +1,6 @@
-
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +16,6 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
-
 /*
     @GetMapping
     public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
@@ -27,13 +24,11 @@ public class CharacterController {
     }
 */
 
-
     @PostMapping
     public ResponseEntity<CharacterDTO> addCharacter(@RequestBody CharacterDTO characterDTO) {
         CharacterDTO characterSaved = characterService.addCharacter(characterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {

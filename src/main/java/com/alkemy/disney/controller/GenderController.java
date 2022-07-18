@@ -30,12 +30,14 @@ public class GenderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(genderSaved);
     }
 
+    //Delete a Gender
    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGender(@PathVariable Long id) {
         genderService.deleteGender(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    //Update a Gender
     @PutMapping("/{id}")
     public ResponseEntity<GenderDTO> updateGender(@PathVariable Long id, @RequestBody GenderDTO gender) {
         GenderDTO result = genderService.updateGender(id, gender);

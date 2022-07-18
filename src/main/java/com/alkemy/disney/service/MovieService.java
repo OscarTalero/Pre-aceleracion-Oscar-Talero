@@ -9,7 +9,12 @@ import java.util.Set;
 public interface MovieService {
 
     MovieDTO addMovie(MovieDTO dto);
-   List<MovieDTO> getAllMovies();
- /*    void deleteMovie(Long id);
-    MovieDTO updateMovie(Long id, MovieDTO movie);*/
+    List<MovieDTO> getAllMovies();
+    MovieDTO getMovieDetailsById(Long id);
+    List<MovieDTO> getCharactersByFilters(String title, List<Long> movies, String order);
+    MovieDTO updateMovie(Long id, MovieDTO movie);
+    void deleteMovie(Long id);
+    void addCharacterToMovie(Long movieId, Long characterId);
+    void deleteCharacterFromMovie(Long movieId, Long characterId);
+
 }

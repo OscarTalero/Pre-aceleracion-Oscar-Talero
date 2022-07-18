@@ -1,6 +1,7 @@
 
 package com.alkemy.disney.controller;
 
+import com.alkemy.disney.DTO.CharacterDTO;
 import com.alkemy.disney.DTO.MovieDTO;
 import com.alkemy.disney.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    //List All Movies
+/*    //List All Movies
     @GetMapping
     public ResponseEntity<List<MovieDTO>> getAllMovies() {
         List<MovieDTO> movies = movieService.getAllMovies();
         return ResponseEntity.ok().body(movies);
-    }
+    }*/
 
     //Add new Movie
     @PostMapping
@@ -32,7 +33,7 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSaved);
     }
 
- /*   @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -42,7 +43,32 @@ public class MovieController {
     public ResponseEntity<MovieDTO> updateMovie(@PathVariable Long id, @RequestBody MovieDTO movie) {
         MovieDTO result = movieService.updateMovie(id, movie);
         return ResponseEntity.ok().body(result);
-    }*/
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MovieDTO>> getMoviesDetailsByFilter(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) List<Long> genre,
+            @RequestParam(required = false, defaultValue = "ASC" ) String order
+    )
+    {
+        List<MovieDTO> movies = this.movieService.getCharactersByFilters(title, genre, order);
+        return ResponseEntity.ok(movies);
+    }
+
+    //POST /movies/{movieId}/character/{characterId}
+    @PostMapping("/{movieId}/character/{characterId}")
+    public ResponseEntity<Void> addCharacterToMovie(@PathVariable Long movieId, @PathVariable Long characterId) {
+        movieService.addCharacterToMovie(movieId, characterId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    //DELETE /movies/{genreId}/character/{characterId} (remove a character from a movie by IDs)
+    @DeleteMapping("/{movieId}/character/{characterId}")
+    public ResponseEntity<Void> removeCharacterFromMovie(@PathVariable Long movieId, @PathVariable Long characterId) {
+        movieService.deleteCharacterFromMovie(movieId, characterId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
 
 }
 
