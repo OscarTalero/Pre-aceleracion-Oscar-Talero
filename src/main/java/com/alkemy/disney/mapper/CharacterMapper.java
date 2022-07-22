@@ -1,4 +1,3 @@
-
 package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.DTO.CharacterDTO;
@@ -8,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class CharacterMapper {
     @Autowired
     private MovieMapper movieMapper;
 
+    //Convert character DTO to Entity
     public CharacterEntity characterDTO2Entity(CharacterDTO dto) {
         CharacterEntity characterEntity = new CharacterEntity();
         characterEntity.setImage(dto.getImage());
@@ -30,6 +29,7 @@ public class CharacterMapper {
         return characterEntity;
     }
 
+    //Convert character Entity to DTO
     public CharacterDTO characterEntity2DTO (CharacterEntity entity, boolean loadMovies){   //14
         CharacterDTO dto = new CharacterDTO();
         dto.setId(entity.getId());
@@ -45,7 +45,7 @@ public class CharacterMapper {
         return dto;
     }
 
-
+    //Convert character List DTO to  List Entity
     public List<CharacterEntity> characterDTOList2EntityList(List<CharacterDTO> dtos) { //4
         List<CharacterEntity> entities = new ArrayList<>();
         for (CharacterDTO dto : dtos) {
@@ -54,7 +54,7 @@ public class CharacterMapper {
         return entities;
     }
 
-
+    //Convert character List Entity to  List DTO
     public List<CharacterDTO> characterEntityList2DTOList (List<CharacterEntity> entities, boolean loadMovies){  //13
         List<CharacterDTO> dtos = new ArrayList<>();
         for ( CharacterEntity entity : entities ){
@@ -62,7 +62,8 @@ public class CharacterMapper {
         }
         return dtos;
     }
-    
+
+    //Update character entity
     public CharacterEntity updateEntity(CharacterEntity entity, CharacterDTO dto){
         entity.setName(dto.getName());
         entity.setImage(dto.getImage());
@@ -71,5 +72,4 @@ public class CharacterMapper {
         entity.setHistory(dto.getHistory());;
         return entity;
     }
-
 }

@@ -1,5 +1,3 @@
-
-
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.CharacterDTO;
@@ -12,7 +10,6 @@ import com.alkemy.disney.repository.Specifications.CharacterSpecification;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +18,12 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Autowired
     CharacterMapper characterMapper;
-
     @Autowired
     CharacterRepository characterRepository;
-
     @Autowired
     private CharacterSpecification characterSpecification;
 
+    //Add character
     public CharacterDTO addCharacter(CharacterDTO dto) {
         CharacterEntity entity = characterMapper.characterDTO2Entity(dto);
         CharacterEntity entitySaved = characterRepository.save(entity);
@@ -40,10 +36,12 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }*/
 
+    //Delete character
     public void deleteCharacter (Long id){
         characterRepository.deleteById(id);
     }
 
+    //Update character
     public CharacterDTO updateCharacter (Long id, CharacterDTO dto){
         Optional<CharacterEntity> entity = characterRepository.findById(id);
         CharacterEntity entityFind = entity.get();
@@ -53,6 +51,7 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
+    //Get all caharacters or by Id
     public CharacterDTO getCharacterDetailsById (Long id){
         Optional<CharacterEntity> entity = characterRepository.findById(id);
         if (!entity.isPresent()) {
@@ -61,12 +60,11 @@ public class CharacterServiceImpl implements CharacterService {
         return  characterMapper.characterEntity2DTO(entity.get(), true);
     }
 
+    //Filters
     public List<CharacterDTO> getCharactersByFilters(String name, Integer age, Integer weight, List<Long> movies){
         CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies);
         List<CharacterEntity> entitiesList = characterRepository.findAll(characterSpecification.getCharactersByFilters(filtersDTO));
         return characterMapper.characterEntityList2DTOList(entitiesList, true);
 
     }
-
-
 }
