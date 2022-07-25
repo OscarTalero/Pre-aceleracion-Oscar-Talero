@@ -80,12 +80,11 @@ public class CharacterMapper {
     }
 
     //Update character entity
-    public CharacterEntity updateEntity(CharacterEntity entity, CharacterDTO dto){
+    public void updateEntity(CharacterEntity entity, CharacterDTO dto){
         entity.setName(dto.getName());
         entity.setImage(dto.getImage());
         entity.setAge(dto.getAge());
         entity.setWeight(dto.getWeight());
         entity.setHistory(dto.getHistory());
-        return entity;
     }
 }

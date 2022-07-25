@@ -40,11 +40,11 @@ public class CharacterController {
     }
 
     //Update character
-    @PutMapping("/{id}")
-    public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO character) {
-        CharacterDTO result = characterService.updateCharacter(id, character);
-        return ResponseEntity.ok().body(result);
-    }
+        @PutMapping("/{id}")
+        public ResponseEntity<CharacterDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO character) {
+            CharacterDTO result = characterService.updateCharacter(id, character);
+            return ResponseEntity.ok().body(result);
+        }
 
     //Get all characters or by Id
     @GetMapping("/{id}")
