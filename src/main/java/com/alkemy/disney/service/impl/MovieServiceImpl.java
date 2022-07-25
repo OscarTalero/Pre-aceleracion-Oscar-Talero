@@ -2,6 +2,7 @@
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.DTO.CharacterDTO;
+import com.alkemy.disney.DTO.MovieBasicDTO;
 import com.alkemy.disney.DTO.MovieDTO;
 import com.alkemy.disney.DTO.MovieFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
@@ -64,8 +65,7 @@ public class MovieServiceImpl implements MovieService {
         MovieEntity entityFind = entity.get();
         MovieEntity entityUpdated = movieMapper.updateEntity(entityFind, dto);
         MovieEntity entitySaved = movieRepository.save(entityUpdated);
-        MovieDTO result = movieMapper.movieEntity2DTO(entitySaved, false);
-        return result;
+        return movieMapper.movieEntity2DTO(entitySaved, false);
     }
 
     //Delete movie
@@ -78,16 +78,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     //Filters
-     public List<MovieDTO> getCharactersByFilters (String title, List<Long> genre, String order) {
+     public List<MovieBasicDTO> getMoviesByFilters (String title, List<Long> genre, String order) {
             MovieFiltersDTO filtersDTO = new MovieFiltersDTO(title, genre, order);
             List<MovieEntity> entityList = movieRepository.findAll(movieSpecification.getMoviesByFilters(filtersDTO));
-            return movieMapper.movieEntityList2DTOList(entityList, true);
+            return movieMapper.movieEntityList2DTOBasicList(entityList);
         }
 
     public void addCharacterToMovie(Long movieId, Long characterId) {
         MovieDTO movieDTO = this.getMovieDetailsById(movieId);
         MovieEntity movie = movieMapper.movieDTO2Entity(movieDTO);
-        movie.getCharacters().size();
+        movie.getCharacters();
         CharacterDTO characterDTO = characterService.getCharacterDetailsById(characterId);
         CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO);
         movie.addCharacterToMovie(characterEntity);
@@ -97,12 +97,11 @@ public class MovieServiceImpl implements MovieService {
     public void deleteCharacterFromMovie(Long movieId, Long characterId) {
         MovieDTO movieDTO = this.getMovieDetailsById(movieId);
         MovieEntity movie = movieMapper.movieDTO2Entity(movieDTO);
-        movie.getCharacters().size();
+        movie.getCharacters();
         CharacterDTO characterDTO = characterService.getCharacterDetailsById(characterId);
         CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO);
         movie.removeCharacterFromMovie(characterEntity);
         movieRepository.save(movie);
-
     }
 }
 

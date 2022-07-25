@@ -4,17 +4,16 @@ import com.alkemy.disney.DTO.CharacterBasicDTO;
 import com.alkemy.disney.DTO.CharacterDTO;
 import com.alkemy.disney.DTO.MovieDTO;
 import com.alkemy.disney.entity.CharacterEntity;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CharacterMapper {
 
-    ModelMapper modelMapper = new ModelMapper();
     @Lazy
     @Autowired
     private MovieMapper movieMapper;
@@ -38,7 +37,7 @@ public class CharacterMapper {
         dto.setName(entity.getName());
         dto.setAge(entity.getAge());
         dto.setWeight(entity.getWeight());
-        dto.setHistory(entity.getHistory());;
+        dto.setHistory(entity.getHistory());
         if (loadMovies) {
             List<MovieDTO> moviesDTOList = this.movieMapper.movieEntityList2DTOList(entity.getMovies(), false);
             dto.setMovies(moviesDTOList);
@@ -54,7 +53,7 @@ public class CharacterMapper {
     }
 
     //Convert character List DTO to  List Entity
-    public List<CharacterEntity> characterDTOList2EntityList(List<CharacterDTO> dtos) { //4
+    public List<CharacterEntity> characterDTOList2EntityList(List<CharacterDTO> dtos) {
         List<CharacterEntity> entities = new ArrayList<>();
         for (CharacterDTO dto : dtos) {
             entities.add(this.characterDTO2Entity(dto));  //5
@@ -72,7 +71,7 @@ public class CharacterMapper {
     }
 
     //Convert character List Entity to  List DTO Basic
-    public List<CharacterBasicDTO> characterEntityList2DTOBasicList (List<CharacterEntity> entities){  //13
+    public List<CharacterBasicDTO> characterEntityList2DTOBasicList (List<CharacterEntity> entities){
         List<CharacterBasicDTO> dtos = new ArrayList<>();
         for ( CharacterEntity entity : entities ){
             dtos.add(this.characterEntity2DTOBasic(entity));
@@ -86,7 +85,7 @@ public class CharacterMapper {
         entity.setImage(dto.getImage());
         entity.setAge(dto.getAge());
         entity.setWeight(dto.getWeight());
-        entity.setHistory(dto.getHistory());;
+        entity.setHistory(dto.getHistory());
         return entity;
     }
 }

@@ -46,7 +46,7 @@ public class CharacterController {
         return ResponseEntity.ok().body(result);
     }
 
-    //Get all charcters or by Id
+    //Get all characters or by Id
     @GetMapping("/{id}")
     public ResponseEntity<CharacterDTO> getCharactersDetailsById(@PathVariable Long id) {
         CharacterDTO characterDto = characterService.getCharacterDetailsById(id);
