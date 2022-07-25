@@ -1,5 +1,6 @@
 package com.alkemy.disney.service;
 
+import com.alkemy.disney.DTO.CharacterBasicDTO;
 import com.alkemy.disney.DTO.CharacterDTO;
 import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.entity.CharacterEntity;
@@ -13,6 +14,6 @@ public interface CharacterService {
     void deleteCharacter(Long id);
     CharacterDTO updateCharacter(Long id, CharacterDTO character);
     CharacterDTO getCharacterDetailsById (Long id);
-    List<CharacterDTO> getCharactersByFilters (String name, Integer age, Integer weight, List<Long> movies);
+    List<CharacterBasicDTO> getCharactersByFilters (String name, Integer age, Integer weight, List<Long> movies);
 
 }

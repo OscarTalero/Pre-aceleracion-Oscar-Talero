@@ -8,11 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="disney" />
+        <module name="Alkemy-Challenge" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Alkemy-Challenge" options="-parameters" />
       <module name="disney" options="-parameters" />
     </option>
   </component>
