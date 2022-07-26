@@ -15,5 +15,5 @@ public interface CharacterService {
     CharacterDTO updateCharacter(Long id, CharacterDTO character);
     CharacterDTO getCharacterDetailsById (Long id);
     List<CharacterBasicDTO> getCharactersByFilters (String name, Integer age, Integer weight, List<Long> movies);
-
+    CharacterEntity getCharacterEntityById (Long id);
 }

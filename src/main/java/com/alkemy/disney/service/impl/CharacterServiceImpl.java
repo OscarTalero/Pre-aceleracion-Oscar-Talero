@@ -56,11 +56,11 @@ public class CharacterServiceImpl implements CharacterService {
         return characterMapper.characterEntity2DTO(entitySaved, true);
     }
 
-    //Get all caharacters or by Id
+    //Get all caharacters details or by Id
     public CharacterDTO getCharacterDetailsById (Long id){
         Optional<CharacterEntity> entity = characterRepository.findById(id);
         if (!entity.isPresent()) {
-            throw new ParamNotFound("Gender Id not valid");
+            throw new ParamNotFound("Character Id not valid");
         }
         return  characterMapper.characterEntity2DTO(entity.get(), true);
     }
@@ -70,6 +70,14 @@ public class CharacterServiceImpl implements CharacterService {
         CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies);
         List<CharacterEntity> entitiesList = characterRepository.findAll(characterSpecification.getCharactersByFilters(filtersDTO));
         return characterMapper.characterEntityList2DTOBasicList(entitiesList);
+    }
 
+    //Get by Id
+    public CharacterEntity getCharacterEntityById (Long characterId) {
+        Optional<CharacterEntity> character = characterRepository.findById(characterId);
+        if (!character.isPresent()) {
+            throw new ParamNotFound("Character Id not valid");
+        }
+        return character.get();
     }
 }

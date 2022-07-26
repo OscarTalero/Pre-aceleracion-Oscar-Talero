@@ -65,7 +65,7 @@ public class CharacterMapper {
     public List<CharacterDTO> characterEntityList2DTOList (List<CharacterEntity> entities, boolean loadMovies){  //13
         List<CharacterDTO> dtos = new ArrayList<>();
         for ( CharacterEntity entity : entities ){
-            dtos.add(this.characterEntity2DTO(entity, true));
+            dtos.add(this.characterEntity2DTO(entity, false));
         }
         return dtos;
     }
