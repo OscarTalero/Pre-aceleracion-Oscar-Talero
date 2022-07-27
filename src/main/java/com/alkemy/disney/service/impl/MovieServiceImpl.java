@@ -84,15 +84,16 @@ public class MovieServiceImpl implements MovieService {
             return movieMapper.movieEntityList2DTOBasicList(entityList);
         }
 
-
+    //Add Character to movie
     public void addCharacterToMovie(Long movieId, Long characterId) {
         MovieEntity movie = this.getMovieEntityById(movieId);
-        movie.getCharacters().size();
+        movie.getCharacters();
         CharacterEntity characterEntity = characterService.getCharacterEntityById(characterId);
         movie.addCharacterToMovie(characterEntity);
         movieRepository.save(movie);
     }
 
+    //Get Movie entity
     public MovieEntity getMovieEntityById(Long movieId) {
         Optional<MovieEntity> movie = movieRepository.findById(movieId);
         if (!movie.isPresent()) {
@@ -101,16 +102,14 @@ public class MovieServiceImpl implements MovieService {
         return movie.get();
     }
 
-
-
+    //Remove Character from Movie
     public void deleteCharacterFromMovie(Long movieId, Long characterId) {
-        MovieDTO movieDTO = this.getMovieDetailsById(movieId);
-        MovieEntity movie = movieMapper.movieDTO2Entity(movieDTO);
+        MovieEntity movie = getMovieEntityById(movieId);
         movie.getCharacters();
-        CharacterDTO characterDTO = characterService.getCharacterDetailsById(characterId);
-        CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO);
+        CharacterEntity characterEntity = characterService.getCharacterEntityById(characterId);
         movie.removeCharacterFromMovie(characterEntity);
         movieRepository.save(movie);
     }
+
 }
 
