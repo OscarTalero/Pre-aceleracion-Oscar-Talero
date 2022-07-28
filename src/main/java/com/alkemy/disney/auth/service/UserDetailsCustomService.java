@@ -1,10 +1,7 @@
 package com.alkemy.disney.auth.service;
 
-import com.alkemy.disney.auth.dto.UserDTO;
 import com.alkemy.disney.auth.entity.UserEntity;
-import com.alkemy.disney.auth.exception.UserAlreadyExistException;
 import com.alkemy.disney.auth.repository.UserRepository;
-import com.alkemy.disney.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,33 +9,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 
 @Service
+@Transactional
 public class UserDetailsCustomService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private EmailService emailService;
-
-    public boolean CheckIfUserExist(String username){
-        return userRepository.findByUsername(username) != null;
-    }
-
-    public boolean save(UserDTO userDTO) throws UserAlreadyExistException {
-        if(CheckIfUserExist(userDTO.getUsername())){
-            throw new UserAlreadyExistException("User already exist");
-        }
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(userDTO.getUsername());
-        userEntity.setPassword(userDTO.getPassword());
-        userEntity = this.userRepository.save(userEntity);
-        if(userEntity != null){
-            emailService.sendWelcomeEmailTo(userEntity.getUsername());
-        }
-        return userEntity != null;
-    }
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

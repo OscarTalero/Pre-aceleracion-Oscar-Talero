@@ -2,60 +2,75 @@ package com.alkemy.disney.auth.controller;
 
 import com.alkemy.disney.auth.dto.AuthenticationRequest;
 import com.alkemy.disney.auth.dto.AuthenticationResponse;
+import com.alkemy.disney.auth.dto.Message;
 import com.alkemy.disney.auth.dto.UserDTO;
-import com.alkemy.disney.auth.service.JwtUtils;
-import com.alkemy.disney.auth.service.UserDetailsCustomService;
+import com.alkemy.disney.auth.entity.UserEntity;
+import com.alkemy.disney.auth.jwt.JwtProvider;
+import com.alkemy.disney.auth.repository.UserRepository;
+import com.alkemy.disney.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/auth")
 @RestController
+@RequestMapping("/auth")
+@CrossOrigin
 public class UserAuthController {
 
-    private UserDetailsCustomService userDetailsService;
-    private AuthenticationManager authenticationManager;
-    private JwtUtils jwtTokenUtil;
-
     @Autowired
-    public UserAuthController(UserDetailsCustomService userDetailsService, AuthenticationManager authenticationManager,
-                              JwtUtils jwtTokenUtil){
-        this.userDetailsService = userDetailsService;
-        this.authenticationManager = authenticationManager;
-        this. jwtTokenUtil = jwtTokenUtil;
-    }
+    UserRepository userRepository;
+     @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtProvider jwtProvider;
+    @Autowired
+    private EmailService emailService;
 
+    //Convert Dto to userEntity
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register (@Valid @RequestBody UserDTO user) throws Exception{
-        this.userDetailsService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<?> user (@Valid @RequestBody UserDTO user,
+                                          BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(new Message("Error fields or Invalid mail"), HttpStatus.BAD_REQUEST);
+        }
+        if(userRepository.existsUserByUsername(user.getUsername())){
+            return new ResponseEntity<>(new Message("Username exits"), HttpStatus.BAD_REQUEST);
+        }
+        UserEntity newUser = new UserEntity();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser = this.userRepository.save(newUser);
+        if(newUser != null){
+            emailService.sendWelcomeEmailTo(newUser.getUsername());
+        }
+        userRepository.save(newUser);
+        return new ResponseEntity<>(new Message("Created User"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login (@RequestBody AuthenticationRequest authRequest) throws Exception {
-
-        UserDetails userDetails;
-
-        try{
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
-            userDetails = (UserDetails) auth.getPrincipal();
-        } catch (BadCredentialsException e){
-            throw new Exception("Incorrect username or password", e);
-        }
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authRequest, BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+            return new ResponseEntity(new Message("Invalid fields"), HttpStatus.BAD_REQUEST);
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(authRequest.getUsername(),
+                                authRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtProvider.generateToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        AuthenticationResponse auth = new AuthenticationResponse(jwt);
+        return new ResponseEntity<>(auth, HttpStatus.OK);
     }
 }
