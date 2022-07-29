@@ -29,10 +29,16 @@ public class CharacterEntity {
 
     private boolean deleted = Boolean.FALSE;
 
-
     @ManyToMany(mappedBy = "characters")
     private List<MovieEntity> movies = new ArrayList<>();
 
-
-
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final CharacterEntity other = (CharacterEntity) obj;
+        return other.id == this.id;
+    }
 }

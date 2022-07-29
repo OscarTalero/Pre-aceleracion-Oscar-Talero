@@ -2,6 +2,8 @@ package com.alkemy.disney.controller;
 
 import com.alkemy.disney.DTO.GenderDTO;
 import com.alkemy.disney.service.GenderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("genders")
+@Api( tags = "Genders")
 public class GenderController {
 
     @Autowired
     private GenderService genderService;
 
-    //List All Genders
+    @ApiOperation(value = "This method is used to get all Genders.")
     @GetMapping
     public ResponseEntity<List<GenderDTO>> getAllGenders() {
         List<GenderDTO> gendersDTO = genderService.getAllGenders();

@@ -65,7 +65,7 @@ public class MovieServiceImpl implements MovieService {
         MovieEntity entityFind = entity.get();
         MovieEntity entityUpdated = movieMapper.updateEntity(entityFind, dto);
         MovieEntity entitySaved = movieRepository.save(entityUpdated);
-        return movieMapper.movieEntity2DTO(entitySaved, false);
+        return movieMapper.movieEntity2DTO(entitySaved, true);
     }
 
     //Delete movie

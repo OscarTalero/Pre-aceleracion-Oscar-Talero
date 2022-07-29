@@ -11,7 +11,7 @@ public class MovieDTO {
     private Long id;
     private String image;
     private String title;
- //   private String creationDate;
+    private String creationDate;
     private Integer rating;
     private List<CharacterDTO> characters;
     private GenderDTO gender;

@@ -27,4 +27,5 @@ public class UserDetailsCustomService implements UserDetailsService {
         }
         return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.emptyList());
     }
+
 }
