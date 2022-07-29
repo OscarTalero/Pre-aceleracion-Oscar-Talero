@@ -3,6 +3,7 @@ package com.alkemy.disney.entity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,13 +19,16 @@ public class MovieEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String image;
+    @NotNull
     private String title;
 
-   @Column(name = "creation_date")
+    @Column(name = "creation_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate creationDate;
 
+    @NotNull
     private Integer rating;
 
     @ManyToOne(fetch = FetchType.LAZY)

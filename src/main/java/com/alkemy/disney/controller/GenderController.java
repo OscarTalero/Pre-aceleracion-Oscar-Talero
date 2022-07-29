@@ -26,21 +26,21 @@ public class GenderController {
         return ResponseEntity.ok().body(gendersDTO);
     }
 
-    //Add new Gender
+    @ApiOperation(value = "This method is used to add a Gender.")
     @PostMapping
     public ResponseEntity<GenderDTO> addGender(@RequestBody GenderDTO gender) {
         GenderDTO genderSaved = genderService.addGender(gender);
         return ResponseEntity.status(HttpStatus.CREATED).body(genderSaved);
     }
 
-    //Delete a Gender
+    @ApiOperation(value = "This method is used to remove a Gender.")
    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGender(@PathVariable Long id) {
         genderService.deleteGender(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    //Update a Gender
+    @ApiOperation(value = "This method is used to update a Gender.")
     @PutMapping("/{id}")
     public ResponseEntity<GenderDTO> updateGender(@PathVariable Long id, @RequestBody GenderDTO gender) {
         GenderDTO result = genderService.updateGender(id, gender);

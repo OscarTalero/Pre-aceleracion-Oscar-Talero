@@ -8,6 +8,8 @@ import com.alkemy.disney.auth.entity.UserEntity;
 import com.alkemy.disney.auth.jwt.JwtProvider;
 import com.alkemy.disney.auth.repository.UserRepository;
 import com.alkemy.disney.service.EmailService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +27,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin
+@Api( tags = "User Auth")
 public class UserAuthController {
 
     @Autowired
     UserRepository userRepository;
-     @Autowired
+    @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
     AuthenticationManager authenticationManager;
@@ -38,7 +41,7 @@ public class UserAuthController {
     @Autowired
     private EmailService emailService;
 
-    //Convert Dto to userEntity
+    @ApiOperation(value = "This method is used to register a new User.")
     @PostMapping("/register")
     public ResponseEntity<?> user (@Valid @RequestBody UserDTO user,
                                           BindingResult bindingResult){
@@ -59,6 +62,7 @@ public class UserAuthController {
         return new ResponseEntity<>(new Message("Created User"), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "This method is used to login an user.")
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors())

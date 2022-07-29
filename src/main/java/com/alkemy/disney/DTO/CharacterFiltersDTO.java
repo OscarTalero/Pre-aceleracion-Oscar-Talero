@@ -2,12 +2,16 @@ package com.alkemy.disney.DTO;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 public class CharacterFiltersDTO {
+    @NotNull
     private String name;
+    @NotNull
     private Integer age;
+    @NotNull
     private Integer weight;
     private List<Long> movies;
 

@@ -5,6 +5,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,10 +22,15 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String name;
+    @NotNull
     private String image;
+    @NotNull
     private Integer age;
+    @NotNull
     private Integer weight;
+    @NotNull
     private String history;
 
     private boolean deleted = Boolean.FALSE;
