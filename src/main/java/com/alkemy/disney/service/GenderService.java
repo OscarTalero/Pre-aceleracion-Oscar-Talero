@@ -1,6 +1,6 @@
 package com.alkemy.disney.service;
 
-import com.alkemy.disney.DTO.GenderDTO;
+import com.alkemy.disney.dto.GenderDTO;
 
 import java.util.List;
 

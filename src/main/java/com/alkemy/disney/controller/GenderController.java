@@ -1,6 +1,6 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.DTO.GenderDTO;
+import com.alkemy.disney.dto.GenderDTO;
 import com.alkemy.disney.service.GenderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +33,7 @@ public class GenderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(genderSaved);
     }
 
-    @ApiOperation(value = "This method is used to remove a Gender.")
+   @ApiOperation(value = "This method is used to remove a Gender.")
    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGender(@PathVariable Long id) {
         genderService.deleteGender(id);

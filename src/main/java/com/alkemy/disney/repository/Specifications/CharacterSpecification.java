@@ -1,7 +1,7 @@
 package com.alkemy.disney.repository.Specifications;
 
 
-import com.alkemy.disney.DTO.CharacterFiltersDTO;
+import com.alkemy.disney.dto.CharacterFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import org.springframework.data.jpa.domain.Specification;

@@ -1,10 +1,9 @@
 
 package com.alkemy.disney.service.impl;
 
-import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.MovieBasicDTO;
-import com.alkemy.disney.DTO.MovieDTO;
-import com.alkemy.disney.DTO.MovieFiltersDTO;
+import com.alkemy.disney.dto.MovieBasicDTO;
+import com.alkemy.disney.dto.MovieDTO;
+import com.alkemy.disney.dto.MovieFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.exception.ParamNotFound;

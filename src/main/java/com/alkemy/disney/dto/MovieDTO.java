@@ -1,11 +1,9 @@
-package com.alkemy.disney.DTO;
+package com.alkemy.disney.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class MovieDTO {

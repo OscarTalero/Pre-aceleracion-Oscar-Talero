@@ -1,7 +1,7 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.DTO.CharacterBasicDTO;
-import com.alkemy.disney.DTO.CharacterDTO;
+import com.alkemy.disney.dto.CharacterBasicDTO;
+import com.alkemy.disney.dto.CharacterDTO;
 import com.alkemy.disney.service.CharacterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,14 +19,6 @@ public class CharacterController {
 
     @Autowired
     private CharacterService characterService;
-
-/*
-    @GetMapping
-    public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
-        List<CharacterDTO> characters = characterService.getAllCharacters();
-        return ResponseEntity.ok().body(characters);
-    }
-*/
 
     @ApiOperation(value = "This method is used to add a Character.")
     @PostMapping

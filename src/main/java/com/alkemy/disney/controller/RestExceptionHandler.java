@@ -1,6 +1,6 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.DTO.ApiErrorDTO;
+import com.alkemy.disney.dto.ApiErrorDTO;
 import com.alkemy.disney.exception.ParamNotFound;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,8 @@
 package com.alkemy.disney.mapper;
-import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.MovieBasicDTO;
-import com.alkemy.disney.DTO.MovieDTO;
+
+import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.MovieBasicDTO;
+import com.alkemy.disney.dto.MovieDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,6 @@ public class MovieMapper {
     @Autowired
     private GenderMapper genderMapper;
 
-
     public MovieEntity movieDTO2Entity(MovieDTO movieDTO) {  //2
         MovieEntity entity = new MovieEntity();
         entity.setImage(movieDTO.getImage());
@@ -36,7 +36,6 @@ public class MovieMapper {
         return entity;
     }
 
-
     private LocalDate string2LocalDate(String stringDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(stringDate, formatter);
@@ -47,7 +46,7 @@ public class MovieMapper {
         dto.setId(entity.getId());
         dto.setImage(entity.getImage());
         dto.setTitle(entity.getTitle());
-    //    dto.setCreationDate(entity.getCreationDate().toString());
+        dto.setCreationDate(entity.getCreationDate().toString());
         dto.setRating(entity.getRating());
         dto.setGender(genderMapper.genderEntity2DTO(entity.getGender()));
         if (loadCharacters) {
@@ -61,7 +60,7 @@ public class MovieMapper {
         MovieBasicDTO dto = new MovieBasicDTO();
         dto.setImage(entity.getImage());
         dto.setTitle(entity.getTitle());
-       // dto.setCreationDate(entity.getCreationDate().toString());
+        dto.setCreationDate(entity.getCreationDate().toString());
         return dto;
     }
 
@@ -89,31 +88,3 @@ public class MovieMapper {
     }
 
 }
-
-
-
-
-
-
-/*
-
-
-    public MovieEntity movieBasicDTO2Entity (MovieDTO dto){
-        return modelMapper.map(dto, MovieEntity.class);
-    }
-
-    public List<MovieBasicDTO> movieEntityList2BasicDTOList(List<MovieEntity> entityList) {
-        List<MovieBasicDTO> basicDTOList = new ArrayList<>();
-        for (MovieEntity entity : entityList) {
-            basicDTOList.add(movieEntity2BasicDTO(entity));
-        }
-        return basicDTOList;
-    }
-
-    public MovieBasicDTO movieEntity2BasicDTO (MovieEntity entity){
-        return modelMapper.map(entity, MovieBasicDTO.class);
-    }
-}
-
-*/
-

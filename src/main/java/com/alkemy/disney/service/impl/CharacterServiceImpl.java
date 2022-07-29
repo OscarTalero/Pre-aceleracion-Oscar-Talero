@@ -1,8 +1,8 @@
 package com.alkemy.disney.service.impl;
 
-import com.alkemy.disney.DTO.CharacterBasicDTO;
-import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.CharacterFiltersDTO;
+import com.alkemy.disney.dto.CharacterBasicDTO;
+import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterFiltersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.exception.ParamNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
@@ -30,12 +30,6 @@ public class CharacterServiceImpl implements CharacterService {
         CharacterEntity entitySaved = characterRepository.save(entity);
         return characterMapper.characterEntity2DTO(entitySaved, false);
     }
-
-/*  public List<CharacterDTO> getAllCharacters(){
-        List<CharacterEntity> entities = characterRepository.findAll();
-        List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(entities, false);
-        return result;
-    }*/
 
     //Delete character
     public void deleteCharacter (Long id){

@@ -1,6 +1,6 @@
 package com.alkemy.disney.service.impl;
 
-import com.alkemy.disney.DTO.GenderDTO;
+import com.alkemy.disney.dto.GenderDTO;
 import com.alkemy.disney.entity.GenderEntity;
 import com.alkemy.disney.exception.ParamNotFound;
 import com.alkemy.disney.mapper.GenderMapper;

@@ -1,9 +1,8 @@
 
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.DTO.CharacterDTO;
-import com.alkemy.disney.DTO.MovieBasicDTO;
-import com.alkemy.disney.DTO.MovieDTO;
+import com.alkemy.disney.dto.MovieBasicDTO;
+import com.alkemy.disney.dto.MovieDTO;
 import com.alkemy.disney.service.MovieService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/movies")
@@ -22,13 +20,6 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
-
-/*    //List All Movies
-    @GetMapping
-    public ResponseEntity<List<MovieDTO>> getAllMovies() {
-        List<MovieDTO> movies = movieService.getAllMovies();
-        return ResponseEntity.ok().body(movies);
-    }*/
 
     @ApiOperation(value = "This method is used to add a Movie.")
     @PostMapping

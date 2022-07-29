@@ -1,4 +1,4 @@
-package com.alkemy.disney.DTO;
+package com.alkemy.disney.dto;
 
 import lombok.Data;
 
